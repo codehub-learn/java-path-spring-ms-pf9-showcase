@@ -26,6 +26,12 @@
 	<!-- Modules -->
 	<modules>
 		<module>java-path-spring-cloud-app</module>
+		<module>java-path-spring-cloud-core</module>
+		<module>java-path-spring-cloud-catalog-service</module>
+		<module>java-path-spring-cloud-customer-service</module>
+		<module>java-path-spring-cloud-order-service</module>
+		<module>java-path-spring-cloud-mail-service</module>
+		<module>java-path-spring-cloud-loyalty-service</module>
 	</modules>
 
 	<!-- Properties/Variables -->
@@ -107,6 +113,18 @@
 		<!-- Plugin management and corresponding configuration used by all modules -->
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+							</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
@@ -209,18 +227,6 @@
 						</archive>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<excludes>
-							<exclude>
-								<groupId>org.projectlombok</groupId>
-								<artifactId>lombok</artifactId>
-							</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -229,6 +235,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
