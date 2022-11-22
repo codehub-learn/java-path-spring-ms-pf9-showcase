@@ -47,11 +47,17 @@
 
 		<!-- Library versions-->
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
 		<disruptor-maven-plugin.version>3.4.4</disruptor-maven-plugin.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
 			<!--
 			Asynchronous Logging @see https://logging.apache.org/log4j/2.x/manual/async.html
 			Hint:
@@ -122,6 +128,10 @@
 								<groupId>org.projectlombok</groupId>
 								<artifactId>lombok</artifactId>
 							</exclude>
+							<exclude>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct</artifactId>
+							</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
@@ -182,7 +192,6 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.10.1</version>
 					<configuration>
-
 						<!--
 						In order to compile your project for Java 11, add the release configuration to the compiler
 						plugin, a new compiler parameter to replace the source and target version parameters
@@ -196,6 +205,16 @@
 								<groupId>org.projectlombok</groupId>
 								<artifactId>lombok</artifactId>
 								<version>${lombok.version}</version>
+							</path>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok-mapstruct-binding</artifactId>
+								<version>${lombok.mapstruct.binding.version}</version>
 							</path>
 						</annotationProcessorPaths>
 					</configuration>
