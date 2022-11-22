@@ -1,4 +1,4 @@
-package gr.codelearn.spring.cloud.showcase.catalog.base;
+package gr.codelearn.spring.cloud.showcase.core.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public abstract class AbstractLogComponent {
+public abstract class BaseComponent {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@PostConstruct

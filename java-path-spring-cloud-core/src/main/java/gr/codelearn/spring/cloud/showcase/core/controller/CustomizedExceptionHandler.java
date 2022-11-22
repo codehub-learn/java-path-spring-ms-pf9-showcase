@@ -1,9 +1,10 @@
-package gr.codelearn.spring.cloud.showcase.catalog.controller;
+package gr.codelearn.spring.cloud.showcase.core.controller;
 
-import gr.codelearn.spring.cloud.showcase.catalog.base.AbstractLogComponent;
-import gr.codelearn.spring.cloud.showcase.catalog.transfer.ApiError;
-import gr.codelearn.spring.cloud.showcase.catalog.transfer.ApiResponse;
+import gr.codelearn.spring.cloud.showcase.core.base.BaseComponent;
+import gr.codelearn.spring.cloud.showcase.core.transfer.ApiError;
+import gr.codelearn.spring.cloud.showcase.core.transfer.ApiResponse;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -16,12 +17,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.NoSuchElementException;
 
-/**
- * This class is responsible for handling all errors, exceptions in a wider sense, that can be thrown while handling the
- * incoming request.
- */
 @RestControllerAdvice
-public class CustomizedExceptionHandler extends AbstractLogComponent {
+public class CustomizedExceptionHandler extends BaseComponent {
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<ApiResponse<?>> handleAllExceptions(final Exception ex, final WebRequest request) {
 		logger.error("Unexpected exception occurred.", ex);
@@ -33,26 +30,37 @@ public class CustomizedExceptionHandler extends AbstractLogComponent {
 	@ExceptionHandler(NoSuchElementException.class)
 	public final ResponseEntity<ApiResponse<?>> handleNonExistence(final NoSuchElementException ex,
 																   final WebRequest request) {
-		logger.warn("Reference to a non-existent object. Details: {}.", ex.getMessage());
-		return new ResponseEntity<>(
-				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.NOT_FOUND, request)).build(),
-				HttpStatus.NOT_FOUND);
+		logger.error("Reference to a non-existent object.", ex);
+		return new ResponseEntity<>(ApiResponse.builder().apiError(
+				getApiError(ex, HttpStatus.NOT_FOUND, request, "Reference to a non-existent object.")).build(),
+									HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(DataAccessException.class)
 	public final ResponseEntity<ApiResponse<?>> handleDataErrors(final DataAccessException ex,
 																 final WebRequest request) {
-		logger.warn("There was something wrong while interacting with the associated database. Details: {}.",
-					ex.getMessage());
+		logger.error("There was something wrong while interacting with the associated database.", ex);
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.NOT_ACCEPTABLE, request)).build(),
 				HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public final ResponseEntity<ApiResponse<?>> handleDataConstraintErrors(final DataIntegrityViolationException ex,
+																		   final WebRequest request) {
+		var customMessage = "There was a conflict while interacting with the associated database. Make sure the " +
+				"data submitted does not include already existing values in fields such as ids and serial numbers.";
+		logger.error("{}", customMessage, ex);
+
+		return new ResponseEntity<>(
+				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.NOT_ACCEPTABLE, request, customMessage))
+						.build(), HttpStatus.NOT_ACCEPTABLE);
+	}
+
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	protected ResponseEntity<ApiResponse<?>> handleMissingServletRequestParameter(
 			final MissingServletRequestParameterException ex, final WebRequest request) {
-		logger.warn("There was a parameter missing from incoming request. Details: {}.", ex.getMessage());
+		logger.error("There was a parameter missing from incoming request", ex);
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
 				HttpStatus.BAD_REQUEST);
@@ -61,7 +69,7 @@ public class CustomizedExceptionHandler extends AbstractLogComponent {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<ApiResponse<?>> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
 																		  final WebRequest request) {
-		logger.warn("Method argument is invalid. Details: {}.", ex.getMessage());
+		logger.error("Method argument is invalid.", ex);
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
 				HttpStatus.BAD_REQUEST);
@@ -70,7 +78,7 @@ public class CustomizedExceptionHandler extends AbstractLogComponent {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<ApiResponse<?>> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex,
 																		   final WebRequest request) {
-		logger.warn("Method argument, although matched, is of wrong type. Details: {}.", ex.getMessage());
+		logger.error("Method argument, although matched, is of wrong type.", ex);
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
 				HttpStatus.BAD_REQUEST);
@@ -82,5 +90,14 @@ public class CustomizedExceptionHandler extends AbstractLogComponent {
 			path = StringUtils.replace(path, "uri=", "");
 		}
 		return new ApiError(status.value(), ex.getMessage(), path);
+	}
+
+	private ApiError getApiError(final Exception ex, final HttpStatus status, final WebRequest request,
+								 String customMessage) {
+		String path = request.getDescription(false);
+		if (path.indexOf("uri=") == 0) {
+			path = StringUtils.replace(path, "uri=", "");
+		}
+		return new ApiError(status.value(), customMessage != null ? customMessage : ex.getMessage(), path);
 	}
 }

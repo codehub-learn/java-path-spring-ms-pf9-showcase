@@ -1,4 +1,4 @@
-package gr.codelearn.spring.cloud.showcase.catalog.transfer;
+package gr.codelearn.spring.cloud.showcase.core.transfer;
 
 import lombok.Value;
 

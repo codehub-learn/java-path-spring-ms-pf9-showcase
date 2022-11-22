@@ -1,4 +1,4 @@
-package gr.codelearn.spring.cloud.showcase.catalog.domain;
+package gr.codelearn.spring.cloud.showcase.core.domain;
 
 public enum CustomerCategory {
 	INDIVIDUAL(0), BUSINESS(0.2f), GOVERNMENT(0.5f);

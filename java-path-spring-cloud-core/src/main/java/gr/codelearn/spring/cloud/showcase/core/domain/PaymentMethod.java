@@ -1,8 +1,5 @@
-package gr.codelearn.spring.cloud.showcase.catalog.domain;
+package gr.codelearn.spring.cloud.showcase.core.domain;
 
-/**
- * This enumeration class represents all payment methods.
- */
 public enum PaymentMethod {
 	WIRE_TRANSFER(0.10f), CREDIT_CARD(0.15f);
 	private final float discount;
