@@ -2,7 +2,8 @@ package gr.codelearn.spring.cloud.showcase.catalog.service;
 
 import gr.codelearn.spring.cloud.showcase.catalog.domain.Product;
 import gr.codelearn.spring.cloud.showcase.catalog.repository.ProductRepository;
-import gr.codelearn.spring.cloud.showcase.catalog.transfer.KeyValue;
+import gr.codelearn.spring.cloud.showcase.core.service.BaseServiceImpl;
+import gr.codelearn.spring.cloud.showcase.core.transfer.KeyValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

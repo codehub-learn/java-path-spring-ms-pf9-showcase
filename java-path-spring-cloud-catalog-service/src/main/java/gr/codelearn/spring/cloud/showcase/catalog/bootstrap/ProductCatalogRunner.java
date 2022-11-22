@@ -47,7 +47,7 @@ public class ProductCatalogRunner implements CommandLineRunner {
 		);
 		//@formatter:on
 
-		categoryService.save(newCategory);
-		productService.saveAll(products);
+		categoryService.create(newCategory);
+		productService.createAll(products);
 	}
 }
