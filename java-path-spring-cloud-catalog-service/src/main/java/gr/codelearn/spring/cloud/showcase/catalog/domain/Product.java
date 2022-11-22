@@ -1,12 +1,11 @@
 package gr.codelearn.spring.cloud.showcase.catalog.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import gr.codelearn.spring.cloud.showcase.core.domain.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -18,16 +17,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
-@Table(name = "PRODUCTS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "PRODUCTS_SEQ", initialValue = 1, allocationSize = 1)
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "PRODUCTS")
+@SequenceGenerator(name = "idGenerator", sequenceName = "PRODUCTS_SEQ", initialValue = 1, allocationSize = 1)
 public class Product extends BaseModel {
 	@NotNull
 	@Column(length = 50, nullable = false, unique = true)
