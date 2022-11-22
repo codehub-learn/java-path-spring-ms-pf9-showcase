@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Profile("generate-product-catalog")
+@Profile("product-catalog-sample-generator")
 @Component
 @RequiredArgsConstructor
-public class ProductCatalogRunner implements CommandLineRunner {
+public class ProductCatalogSampleGenerator implements CommandLineRunner {
 	private final CategoryService categoryService;
 	private final ProductService productService;
 
