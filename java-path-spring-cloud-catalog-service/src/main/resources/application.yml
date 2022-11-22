@@ -65,3 +65,5 @@ spring:
             # .sql) and DML (data.sql) scripts.
             mode: never
             platform: h2
+server:
+    port: ${random.int[10000,10099]}
