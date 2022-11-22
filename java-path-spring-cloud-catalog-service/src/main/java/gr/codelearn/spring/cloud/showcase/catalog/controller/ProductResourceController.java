@@ -1,6 +1,7 @@
 package gr.codelearn.spring.cloud.showcase.catalog.controller;
 
 import gr.codelearn.spring.cloud.showcase.catalog.domain.Product;
+import gr.codelearn.spring.cloud.showcase.catalog.mapper.ProductMapper;
 import gr.codelearn.spring.cloud.showcase.catalog.service.ProductService;
 import gr.codelearn.spring.cloud.showcase.core.base.BaseMapper;
 import gr.codelearn.spring.cloud.showcase.core.controller.BaseController;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
-@RequiredArgsConstructor
-public class ProductController extends BaseController<Product, ProductResource> {
+public class ProductResourceController extends BaseController<Product, ProductResource> {
 	private final ProductService productService;
+	private final ProductMapper productMapper;
 
 	@Override
 	public BaseService<Product, Long> getBaseService() {
@@ -26,12 +28,13 @@ public class ProductController extends BaseController<Product, ProductResource> 
 	}
 
 	@Override
-	protected BaseMapper getMapper() {
-		return null;
+	public BaseMapper<Product, ProductResource> getMapper() {
+		return productMapper;
 	}
 
 	@GetMapping(params = {"serial"})
-	public ResponseEntity<ApiResponse<Product>> findBySerial(@RequestParam(name = "serial") String serial) {
-		return ResponseEntity.ok(ApiResponse.<Product>builder().data(productService.findBySerial(serial)).build());
+	public ResponseEntity<ApiResponse<ProductResource>> findBySerial(@RequestParam(name = "serial") String serial) {
+		return ResponseEntity.ok(ApiResponse.<ProductResource>builder()
+										 .data(productMapper.toResource(productService.findBySerial(serial))).build());
 	}
 }

@@ -1,6 +1,7 @@
 package gr.codelearn.spring.cloud.showcase.catalog.controller;
 
 import gr.codelearn.spring.cloud.showcase.catalog.domain.Category;
+import gr.codelearn.spring.cloud.showcase.catalog.mapper.CategoryMapper;
 import gr.codelearn.spring.cloud.showcase.catalog.service.CategoryService;
 import gr.codelearn.spring.cloud.showcase.core.base.BaseMapper;
 import gr.codelearn.spring.cloud.showcase.core.controller.BaseController;
@@ -10,11 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/categories")
-public class CategoryController extends BaseController<Category, CategoryResource> {
+public class CategoryResourceController extends BaseController<Category, CategoryResource> {
 	private final CategoryService categoryService;
+	private final CategoryMapper categoryMapper;
 
 	@Override
 	public BaseService<Category, Long> getBaseService() {
@@ -22,7 +24,7 @@ public class CategoryController extends BaseController<Category, CategoryResourc
 	}
 
 	@Override
-	protected BaseMapper getMapper() {
-		return null;
+	public BaseMapper<Category, CategoryResource> getMapper() {
+		return categoryMapper;
 	}
 }
