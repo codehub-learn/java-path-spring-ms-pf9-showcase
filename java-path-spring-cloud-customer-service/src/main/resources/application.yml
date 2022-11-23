@@ -55,8 +55,6 @@ spring:
                             log:
                                 LOG_QUERIES_SLOWER_THAN_MS: 10 # NOT a production setting
             show-sql: false
-    cache:
-        cache-names: customer
     application:
         name: customer-service
     sql:
