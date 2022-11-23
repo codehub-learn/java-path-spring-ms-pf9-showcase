@@ -15,9 +15,9 @@ import java.util.Set;
 @Setter
 @ToString(callSuper = true)
 public class OrderResource extends BaseModelResource {
-	private String email;
+	private String customerEmail;
 	private CustomerCategory customerCategory;
-	private final Set<OrderItemResource> orderItems = new HashSet<>();
+	private Set<OrderItemResource> orderItems = new HashSet<>();
 	private PaymentMethod paymentMethod;
 	private BigDecimal cost;
 	private Date submitDate;

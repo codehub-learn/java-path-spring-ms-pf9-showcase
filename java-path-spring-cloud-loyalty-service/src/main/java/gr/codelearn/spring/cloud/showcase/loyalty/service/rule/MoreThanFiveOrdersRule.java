@@ -17,7 +17,7 @@ public class MoreThanFiveOrdersRule implements Rule<OrderResource> {
 
 	@Override
 	public boolean matches(OrderResource order) {
-		Long orderCount = orderServiceClient.countByCustomer(order.getEmail()).getBody().getData();
+		Long orderCount = orderServiceClient.countByCustomer(order.getCustomerEmail()).getBody().getData();
 
 		return orderCount > 5;
 	}

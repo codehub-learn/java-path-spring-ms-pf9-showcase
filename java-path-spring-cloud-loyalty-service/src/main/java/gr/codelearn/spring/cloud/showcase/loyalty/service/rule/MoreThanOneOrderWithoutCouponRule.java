@@ -17,8 +17,8 @@ public class MoreThanOneOrderWithoutCouponRule implements Rule<OrderResource> {
 
 	@Override
 	public boolean matches(OrderResource order) {
-		Long orderCount = orderServiceClient.countByCustomer(order.getEmail()).getBody().getData();
-		Long orderWithCoupon = orderServiceClient.countByNotNullCouponCodeAndEmail(order.getEmail()).getBody()
+		Long orderCount = orderServiceClient.countByCustomer(order.getCustomerEmail()).getBody().getData();
+		Long orderWithCoupon = orderServiceClient.countByNotNullCouponCodeAndEmail(order.getCustomerEmail()).getBody()
 				.getData();
 
 		return orderCount > 1 && orderWithCoupon == 0;
