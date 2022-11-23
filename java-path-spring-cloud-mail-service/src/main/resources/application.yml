@@ -24,3 +24,5 @@ spring:
         test-connection: false
     application:
         name: mail-service
+server:
+    port: ${random.int[10300,10399]}
