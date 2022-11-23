@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Profile("product-catalog-sample-generator")
+@Profile("generate-product-catalog")
 @Component
 @RequiredArgsConstructor
 public class ProductCatalogSampleGenerator implements CommandLineRunner {
