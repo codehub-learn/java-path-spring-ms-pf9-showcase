@@ -14,6 +14,11 @@
 	<name>[${project.artifactId}]</name>
 	<description>Java Learning @ Development Path, Spring Cloud Mail service</description>
 
+	<!-- Properties -->
+	<properties>
+		<sendgrid-java.version>4.9.3</sendgrid-java.version>
+	</properties>
+
 	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
@@ -45,9 +50,10 @@
 		<dependency>
 			<groupId>com.sendgrid</groupId>
 			<artifactId>sendgrid-java</artifactId>
-			<version>4.7.2</version>
+			<version>${sendgrid-java.version}</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
