@@ -46,6 +46,6 @@ public class Customer extends BaseModel {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	@Column(length = 10, nullable = false)
+	@Column(name = "CUSTOMER_CATEGORY", length = 10, nullable = false)
 	private CustomerCategory customerCategory;
 }
