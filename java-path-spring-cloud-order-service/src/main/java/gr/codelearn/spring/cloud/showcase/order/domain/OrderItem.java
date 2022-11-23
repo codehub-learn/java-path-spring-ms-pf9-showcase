@@ -1,12 +1,11 @@
 package gr.codelearn.spring.cloud.showcase.order.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import gr.codelearn.spring.cloud.showcase.core.domain.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -18,22 +17,29 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
-@Table(name = "ORDER_ITEMS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "ORDER_ITEMS_SEQ", initialValue = 1, allocationSize = 1)
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class OrderItem extends BaseEntity {
+@Entity
+@Table(name = "ORDER_ITEMS")
+@SequenceGenerator(name = "idGenerator", sequenceName = "ORDER_ITEMS_SEQ", initialValue = 1, allocationSize = 1)
+public class OrderItem extends BaseModel {
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	private Product product;
+	@Column(length = 50, nullable = false)
+	private String serial;
 
-	@JsonBackReference("orderItems")
+	@NotNull
+	@Column(length = 50, nullable = false)
+	private String name;
+
+	@NotNull
+	@Column(length = 50, nullable = false)
+	private String categoryDescription;
+
+	@ToString.Exclude
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Order order;
