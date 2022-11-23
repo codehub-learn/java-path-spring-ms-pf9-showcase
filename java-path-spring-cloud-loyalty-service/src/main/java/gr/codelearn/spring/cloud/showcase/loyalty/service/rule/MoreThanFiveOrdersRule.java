@@ -1,14 +1,14 @@
 package gr.codelearn.spring.cloud.showcase.loyalty.service.rule;
 
-import gr.codelearn.spring.cloud.showcase.loyalty.domain.Order;
-import gr.codelearn.spring.cloud.showcase.loyalty.service.OrderReportService;
+import gr.codelearn.spring.cloud.showcase.core.transfer.resource.OrderResource;
+import gr.codelearn.spring.cloud.showcase.loyalty.service.client.OrderServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class MoreThanFiveOrdersRule implements Rule<Order> {
-	private final OrderReportService orderReportService;
+public class MoreThanFiveOrdersRule implements Rule<OrderResource> {
+	private final OrderServiceClient orderServiceClient;
 
 	@Override
 	public Float getDiscountPercent() {
@@ -16,8 +16,8 @@ public class MoreThanFiveOrdersRule implements Rule<Order> {
 	}
 
 	@Override
-	public boolean matches(Order order) {
-		Long orderCount = orderReportService.countByCustomer(order.getCustomer().getEmail());
+	public boolean matches(OrderResource order) {
+		Long orderCount = orderServiceClient.countByCustomer(order.getEmail()).getBody().getData();
 
 		return orderCount > 5;
 	}
