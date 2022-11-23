@@ -21,13 +21,6 @@
 			<artifactId>java-path-spring-cloud-core</artifactId>
 			<version>2022.1.0</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 		<!-- FreeMarker dependency -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -38,7 +31,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
-
 		<!-- Mail related dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,4 +42,12 @@
 			<version>4.7.2</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -6,7 +6,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import gr.codelearn.spring.cloud.showcase.mail.base.AbstractLogComponent;
+import gr.codelearn.spring.cloud.showcase.core.base.BaseComponent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @Profile("mail-webapi")
 @Service
 @RequiredArgsConstructor
-public class MailWebApiServiceImpl extends AbstractLogComponent implements MailService {
+public class MailWebApiServiceImpl extends BaseComponent implements MailService {
 	private final static String EMAIL_TYPE = "text/html";
 
 	private final Environment env;

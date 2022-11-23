@@ -2,7 +2,7 @@ package gr.codelearn.spring.cloud.showcase.mail.service;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
-import gr.codelearn.spring.cloud.showcase.mail.base.AbstractLogComponent;
+import gr.codelearn.spring.cloud.showcase.core.base.BaseComponent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @Profile("mail-smtp")
 @Service
 @RequiredArgsConstructor
-public class MailSmtpServiceImpl extends AbstractLogComponent implements MailService {
+public class MailSmtpServiceImpl extends BaseComponent implements MailService {
 	private final Environment env;
 	private final Configuration freemarkerConfiguration;
 	private final JavaMailSender mailSender;

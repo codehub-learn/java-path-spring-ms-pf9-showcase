@@ -1,6 +1,6 @@
 package gr.codelearn.spring.cloud.showcase.mail.bootstrap;
 
-import gr.codelearn.spring.cloud.showcase.mail.base.AbstractLogComponent;
+import gr.codelearn.spring.cloud.showcase.core.base.BaseComponent;
 import gr.codelearn.spring.cloud.showcase.mail.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Profile("sample-mail")
 @Component
 @RequiredArgsConstructor
-public class SampleMailRunner extends AbstractLogComponent implements CommandLineRunner {
+public class SampleMailRunner extends BaseComponent implements CommandLineRunner {
 	private final MailService mailService;
 
 	@Override
