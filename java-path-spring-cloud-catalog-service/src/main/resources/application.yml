@@ -67,3 +67,14 @@ spring:
             platform: h2
 server:
     port: ${random.int[10000,10099]}
+eureka:
+    client:
+        fetch-registry: true
+        refresh:
+            enable: false
+        register-with-eureka: true
+        service-url:
+            defaultZone: http://localhost:8100/eureka/
+    instance:
+        lease-renewal-interval-in-seconds: 30
+        instance-id: ${spring.application.name}-${random.value}
