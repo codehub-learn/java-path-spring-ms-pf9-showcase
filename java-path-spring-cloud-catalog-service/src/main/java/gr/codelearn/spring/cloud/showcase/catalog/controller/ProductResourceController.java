@@ -9,6 +9,7 @@ import gr.codelearn.spring.cloud.showcase.core.service.BaseService;
 import gr.codelearn.spring.cloud.showcase.core.transfer.ApiResponse;
 import gr.codelearn.spring.cloud.showcase.core.transfer.resource.ProductResource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductResourceController extends BaseController<Product, ProductResource> {
 	private final ProductService productService;
 	private final ProductMapper productMapper;
+	private final Environment environment;
 
 	@Override
 	public BaseService<Product, Long> getBaseService() {
@@ -36,5 +38,12 @@ public class ProductResourceController extends BaseController<Product, ProductRe
 	public ResponseEntity<ApiResponse<ProductResource>> findBySerial(@RequestParam(name = "serial") String serial) {
 		return ResponseEntity.ok(ApiResponse.<ProductResource>builder()
 										 .data(productMapper.toResource(productService.findBySerial(serial))).build());
+	}
+
+	@GetMapping("/lb")
+	public ResponseEntity<ApiResponse<String>> checkLoadBalancing() {
+		return ResponseEntity.ok(ApiResponse.<String>builder().data(String.format(
+				"Load Balancing demonstration by accepting requests on port %s.",
+				environment.getProperty("server.port"))).build());
 	}
 }
