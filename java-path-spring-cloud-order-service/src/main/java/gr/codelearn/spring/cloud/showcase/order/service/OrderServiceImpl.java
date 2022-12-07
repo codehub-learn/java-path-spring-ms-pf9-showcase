@@ -9,8 +9,6 @@ import gr.codelearn.spring.cloud.showcase.order.domain.Order;
 import gr.codelearn.spring.cloud.showcase.order.domain.OrderItem;
 import gr.codelearn.spring.cloud.showcase.order.mapper.OrderMapper;
 import gr.codelearn.spring.cloud.showcase.order.repository.OrderRepository;
-import gr.codelearn.spring.cloud.showcase.order.service.client.LoyaltyServiceClient;
-import gr.codelearn.spring.cloud.showcase.order.service.client.MailServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -18,15 +16,14 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderService {
-	private final LoyaltyServiceClient loyaltyServiceClient;
+	//private final LoyaltyServiceClient loyaltyServiceClient;
 	private final OrderRepository orderRepository;
 	private final OrderMapper orderMapper;
-	private final MailServiceClient mailServiceClient;
+	//private final MailServiceClient mailServiceClient;
 
 	@Override
 	public JpaRepository<Order, Long> getRepository() {
@@ -121,23 +118,23 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderSer
 		order.setPaymentMethod(paymentMethod);
 		order.setSubmitDate(new Date());
 
-		//Check for potential loyalty actions
-		var coupon = Objects.requireNonNull(loyaltyServiceClient.apply(orderMapper.toResource(order)).getBody())
-				.getData();
-
-		order.setCost(giveDiscount(order, coupon));
-		if (coupon != null) {
-			order.setCouponCode(coupon.getCode());
-		}
-
+//		//Check for potential loyalty actions
+//		var coupon = Objects.requireNonNull(loyaltyServiceClient.apply(orderMapper.toResource(order)).getBody())
+//				.getData();
+//
+//		order.setCost(giveDiscount(order, coupon));
+//		if (coupon != null) {
+//			order.setCouponCode(coupon.getCode());
+//		}
+//
 		var savedOrder = create(order);
-		if (coupon != null) {
-			loyaltyServiceClient.declare(coupon);
-		}
-		mailServiceClient.send(savedOrder.getCustomerEmail(),
-							   String.format("Successfully submitted your order %d.", savedOrder.getId()),
-							   String.format("You have successfully submitted your order with id %d costing %f at %tc.",
-											 savedOrder.getId(), savedOrder.getCost(), savedOrder.getSubmitDate()));
+//		if (coupon != null) {
+//			loyaltyServiceClient.declare(coupon);
+//		}
+//		mailServiceClient.send(savedOrder.getCustomerEmail(),
+//							   String.format("Successfully submitted your order %d.", savedOrder.getId()),
+//							   String.format("You have successfully submitted your order with id %d costing %f at %tc.",
+//											 savedOrder.getId(), savedOrder.getCost(), savedOrder.getSubmitDate()));
 		return savedOrder;
 	}
 
