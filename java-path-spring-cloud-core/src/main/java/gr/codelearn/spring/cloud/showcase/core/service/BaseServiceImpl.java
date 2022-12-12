@@ -70,7 +70,7 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends BaseComponent
 
 	@Transactional(readOnly = true)
 	public List<T> findAll() {
-		logger.trace("Retrieving all entities.");
+		logger.trace("Retrieving all items.");
 		return getRepository().findAll();
 	}
 
