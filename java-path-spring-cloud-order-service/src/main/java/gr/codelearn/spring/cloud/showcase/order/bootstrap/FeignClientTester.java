@@ -55,6 +55,7 @@ public class FeignClientTester extends BaseComponent implements CommandLineRunne
 	}
 
 	private void checkLoadBalancing() {
-		logger.info("Check loadbalancing, {}.", Objects.requireNonNull(catalogServiceClient.checkLoadBalancing().getBody().getData()));
+		logger.info("Check loadbalancing, {}.",
+					Objects.requireNonNull(catalogServiceClient.checkLoadBalancing().getBody().getData()));
 	}
 }

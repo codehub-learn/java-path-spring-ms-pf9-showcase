@@ -9,5 +9,6 @@ import javax.validation.constraints.Email;
 @FeignClient(name = "mail-service", path = "/mail")
 public interface MailServiceClient {
 	@PostMapping(headers = {"action=send"})
-	void send(@Email @RequestParam("sender") final String sender, @RequestParam("subject") final String subject, @RequestParam("emailBody") final String emailBody);
+	void send(@Email @RequestParam("sender") final String sender, @RequestParam("subject") final String subject,
+			  @RequestParam("emailBody") final String emailBody);
 }
