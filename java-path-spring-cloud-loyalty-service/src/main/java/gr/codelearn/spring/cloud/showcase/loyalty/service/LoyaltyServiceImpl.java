@@ -45,14 +45,14 @@ public class LoyaltyServiceImpl extends BaseComponent implements LoyaltyService 
 	}
 
 	private Rule<OrderResource> checkRules(final OrderResource order) {
-		for (Rule<OrderResource> rule : ruleList) {
-			if (rule.matches(order)) {
-				logger.debug("Rule {} matched order[{}] giving {}% discount and {} as fixed discount.",
-							 rule.getClass().getSimpleName(), order.getId(), rule.getDiscountPercent() * 100,
-							 rule.getDiscountAmount());
-				return rule;
-			}
-		}
+//		for (Rule<OrderResource> rule : ruleList) {
+//			if (rule.matches(order)) {
+//				logger.debug("Rule {} matched order[{}] giving {}% discount and {} as fixed discount.",
+//							 rule.getClass().getSimpleName(), order.getId(), rule.getDiscountPercent() * 100,
+//							 rule.getDiscountAmount());
+//				return rule;
+//			}
+//		}
 		return null;
 	}
 }
