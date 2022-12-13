@@ -58,7 +58,7 @@ public class OrderSampleGenerator extends BaseComponent implements CommandLineRu
 		orderService.checkout(secondOrder, PaymentMethod.WIRE_TRANSFER);
 
 		// Third customer and order
-		CustomerResource c3 = getCustomerResource("malcolm.paker@gmail.com");
+		CustomerResource c3 = getCustomerResource("malcolm.paker@gmailX.com");
 		Order thirdOrder = orderService.initiateOrder(c3);
 		orderService.addItem(thirdOrder, getProductResource("SN1000-0001"), 3);
 		orderService.addItem(thirdOrder, getProductResource("SN1000-0002"), 2);
@@ -67,7 +67,7 @@ public class OrderSampleGenerator extends BaseComponent implements CommandLineRu
 		orderService.checkout(thirdOrder, PaymentMethod.CREDIT_CARD);
 
 		// Fourth customer and order
-		CustomerResource c4 = getCustomerResource("terry.jones@gmail.com");
+		CustomerResource c4 = getCustomerResource("terry.jones@gmailX.com");
 		Order fourthOrder = orderService.initiateOrder(c4);
 		orderService.addItem(fourthOrder, getProductResource("SN1300-0001"), 1);
 		orderService.addItem(fourthOrder, getProductResource("SN1400-0001"), 2);
