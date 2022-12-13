@@ -24,8 +24,11 @@ spring:
         test-connection: false
     application:
         name: mail-service
+    config:
+        import: optional:configserver:http://localhost:8000
 server:
     port: ${random.int[10300,10399]}
+
 eureka:
     client:
         fetch-registry: true

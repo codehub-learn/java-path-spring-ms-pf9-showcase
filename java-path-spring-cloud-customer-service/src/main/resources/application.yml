@@ -63,6 +63,8 @@ spring:
             # .sql) and DML (data.sql) scripts.
             mode: never
             platform: h2
+    config:
+        import: optional:configserver:http://localhost:8000
 server:
     port: ${random.int[10100,10199]}
 eureka:
