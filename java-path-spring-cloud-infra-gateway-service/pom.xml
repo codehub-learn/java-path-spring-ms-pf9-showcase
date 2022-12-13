@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>gr.codelearn</groupId>
+		<artifactId>java-path-spring-cloud</artifactId>
+		<version>2022.1.0</version>
+	</parent>
+	<artifactId>java-path-spring-cloud-infra-gateway-service</artifactId>
+
+	<!-- Meta-data -->
+	<name>[${project.artifactId}]</name>
+	<description>Java Learning @ Development Path, Spring Cloud Gateway service</description>
+
+	<!-- Dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--
+		According to the Spring Cloud 2020.0:
+		Bootstrap, provided by spring-cloud-commons, is no longer enabled by default. If your project requires it,
+		it can be re-enabled by properties or by a new starter. To re-enable by properties set spring.cloud.bootstrap
+		.enabled=true or spring.config.use-legacy-processing=true. These need to be set as an environment variable,
+		java system property or a command line argument. The other option is to include the new
+		spring-cloud-starter-bootstrap (in your POM file).
+
+		https://stackoverflow.com/questions/65063402/why-bootstrap-properties-is-ignored-by-spring-cloud-starter-config
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	</dependencies>
+</project>

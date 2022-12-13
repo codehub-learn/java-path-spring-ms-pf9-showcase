@@ -33,6 +33,8 @@
 		<module>java-path-spring-cloud-mail-service</module>
 		<module>java-path-spring-cloud-loyalty-service</module>
 		<module>java-path-spring-cloud-infra-eureka-service</module>
+		<module>java-path-spring-cloud-infra-gateway-service</module>
+		<module>java-path-spring-cloud-infra-config-service</module>
 	</modules>
 
 	<!-- Properties/Variables -->
